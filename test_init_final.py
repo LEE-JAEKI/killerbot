@@ -20,11 +20,11 @@ from math import ceil, floor
 log_stream = StringIO()    
 logging.basicConfig(stream=log_stream, level=logging.WARNING)
 
-#ilsanglog = logging.getLogger('discord')
-#ilsanglog.setLevel(level = logging.WARNING)
+#killerlog = logging.getLogger('discord')
+#killerlog.setLevel(level = logging.WARNING)
 #handler = logging.StreamHandler()
 #handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-#ilsanglog.addHandler(handler)
+#killerlog.addHandler(handler)
 #####################################################
 
 if not discord.opus.is_loaded():
@@ -3880,7 +3880,7 @@ class mainCog(commands.Cog):
 		resultTJ = random.randrange(1,9)
 		return await PlaySound(ctx.voice_client, './sound/TJ' + str(resultTJ) +'.mp3')
 
-class IlsangDistributionBot(commands.AutoShardedBot):
+class KillerDistributionBot(commands.AutoShardedBot):
 	def __init__(self):
 		intents = discord.Intents.default()
 		intents.messages = True
@@ -4297,9 +4297,9 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 		await super().close()
 		print("킬러디코봇 종료 완료.")
 
-ilsang_distribution_bot : IlsangDistributionBot = IlsangDistributionBot()
+killer_distribution_bot : KillerDistributionBot = KillerDistributionBot()
 
 async def main():
-	await ilsang_distribution_bot.run()
+	await killer_distribution_bot.run()
 
 asyncio.run(main())
