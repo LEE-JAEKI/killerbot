@@ -20,11 +20,11 @@ from math import ceil, floor
 log_stream = StringIO()    
 logging.basicConfig(stream=log_stream, level=logging.WARNING)
 
-#killerlog = logging.getLogger('discord')
-#killerlog.setLevel(level = logging.WARNING)
+#ilsanglog = logging.getLogger('discord')
+#ilsanglog.setLevel(level = logging.WARNING)
 #handler = logging.StreamHandler()
 #handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-#killerlog.addHandler(handler)
+#ilsanglog.addHandler(handler)
 #####################################################
 
 if not discord.opus.is_loaded():
@@ -236,25 +236,25 @@ def init():
 	file_data4 = file_data4.decode('utf-8')
 	command_inputData = file_data4.split('\n')
 	
-	#boss_inidata = repo.get_contents("boss.ini")
-	#file_data3 = base64.b64decode(boss_inidata.content)
-	#file_data3 = file_data3.decode('utf-8')
-	#boss_inputData = file_data3.split('\n')
-	#
-	#fixed_inidata = repo.get_contents("fixed_boss.ini")
-	#file_data2 = base64.b64decode(fixed_inidata.content)
-	#file_data2 = file_data2.decode('utf-8')
-	#fixed_inputData = file_data2.split('\n')
-	#
-	#kill_inidata = repo.get_contents("kill_list.ini")
-	#file_data5 = base64.b64decode(kill_inidata.content)
-	#file_data5 = file_data5.decode('utf-8')
-	#kill_inputData = file_data5.split('\n')
-	#
-	#item_inidata = repo.get_contents("item_list.ini")
-	#file_data6 = base64.b64decode(item_inidata.content)
-	#file_data6 = file_data6.decode('utf-8')
-	#item_inputData = file_data6.split('\n')
+	boss_inidata = repo.get_contents("boss.ini")
+	file_data3 = base64.b64decode(boss_inidata.content)
+	file_data3 = file_data3.decode('utf-8')
+	boss_inputData = file_data3.split('\n')
+
+	fixed_inidata = repo.get_contents("fixed_boss.ini")
+	file_data2 = base64.b64decode(fixed_inidata.content)
+	file_data2 = file_data2.decode('utf-8')
+	fixed_inputData = file_data2.split('\n')
+
+	kill_inidata = repo.get_contents("kill_list.ini")
+	file_data5 = base64.b64decode(kill_inidata.content)
+	file_data5 = file_data5.decode('utf-8')
+	kill_inputData = file_data5.split('\n')
+
+	item_inidata = repo.get_contents("item_list.ini")
+	file_data6 = base64.b64decode(item_inidata.content)
+	file_data6 = file_data6.decode('utf-8')
+	item_inputData = file_data6.split('\n')
 
 	for i in range(len(fixed_inputData)):
 		FixedBossDateData.append(fixed_inputData[i])
@@ -3880,7 +3880,7 @@ class mainCog(commands.Cog):
 		resultTJ = random.randrange(1,9)
 		return await PlaySound(ctx.voice_client, './sound/TJ' + str(resultTJ) +'.mp3')
 
-class KillerDistributionBot(commands.AutoShardedBot):
+class IlsangDistributionBot(commands.AutoShardedBot):
 	def __init__(self):
 		intents = discord.Intents.default()
 		intents.messages = True
@@ -4295,11 +4295,11 @@ class KillerDistributionBot(commands.AutoShardedBot):
 
 	async def close(self):
 		await super().close()
-		print("킬러디코봇 종료 완료.")
+		print("일상디코봇 종료 완료.")
 
-killer_distribution_bot : KillerDistributionBot = KillerDistributionBot()
+ilsang_distribution_bot : IlsangDistributionBot = IlsangDistributionBot()
 
 async def main():
-	await killer_distribution_bot.run()
+	await ilsang_distribution_bot.run()
 
 asyncio.run(main())
