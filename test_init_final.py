@@ -1301,43 +1301,43 @@ class mainCog(commands.Cog):
 			await ctx.send(f"< 텍스트채널 [{ctx.message.channel.name}] 접속완료 >\n< 음성채널 접속 후 [{command[5][0]}] 명령을 사용 하세요 >", tts=False)
 			
 			print('< 텍스트채널 [' + ctx.guild.get_channel(basicSetting[7]).name + '] 접속완료>')
-			#if basicSetting[6] != "" and basicSetting[21] == "1":
-			#	try:
-			#		await ctx.guild.get_channel(basicSetting[6]).connect(reconnect=True, timeout=5)
-			#		print('< 음성채널 [' + ctx.guild.get_channel(basicSetting[6]).name + '] 접속완료>')
-			#	except:
-			#		print('< 음성채널 [' + ctx.guild.get_channel(basicSetting[6]).name + '] 접속에러! >')
-			#		pass
-			#if basicSetting[8] != "":
-			#	if str(basicSetting[8]) in channel_id:
-			#		print('< 사다리채널 [' + ctx.guild.get_channel(int(basicSetting[8])).name + '] 접속완료 >')
-			#	else:
-			#		basicSetting[8] = ""
-			#		print(f"사다리채널 ID 오류! [{command[28][0]} 사다리] 명령으로 재설정 바랍니다.")
-			#if basicSetting[11] != "":
-			#	if str(basicSetting[11]) in channel_id:
-			#		print('< 정산채널 [' + ctx.guild.get_channel(int(basicSetting[11])).name + '] 접속완료>')
-			#	else:
-			#		basicSetting[11] = ""
-			#		print(f"정산채널 ID 오류! [{command[28][0]} 정산] 명령으로 재설정 바랍니다.")
-			#if basicSetting[18] != "":
-			#	if str(basicSetting[18]) in channel_id:
-			#		print('< 척살채널 [' + ctx.guild.get_channel(int(basicSetting[18])).name + '] 접속완료>')
-			#	else:
-			#		basicSetting[18] = ""
-			#		print(f"척살채널 ID 오류! [{command[28][0]} 척살] 명령으로 재설정 바랍니다.")
+			if basicSetting[6] != "" and basicSetting[21] == "1":
+				try:
+					await ctx.guild.get_channel(basicSetting[6]).connect(reconnect=True, timeout=5)
+					print('< 음성채널 [' + ctx.guild.get_channel(basicSetting[6]).name + '] 접속완료>')
+				except:
+					print('< 음성채널 [' + ctx.guild.get_channel(basicSetting[6]).name + '] 접속에러! >')
+					pass
+			if basicSetting[8] != "":
+				if str(basicSetting[8]) in channel_id:
+					print('< 사다리채널 [' + ctx.guild.get_channel(int(basicSetting[8])).name + '] 접속완료 >')
+				else:
+					basicSetting[8] = ""
+					print(f"사다리채널 ID 오류! [{command[28][0]} 사다리] 명령으로 재설정 바랍니다.")
+			if basicSetting[11] != "":
+				if str(basicSetting[11]) in channel_id:
+					print('< 정산채널 [' + ctx.guild.get_channel(int(basicSetting[11])).name + '] 접속완료>')
+				else:
+					basicSetting[11] = ""
+					print(f"정산채널 ID 오류! [{command[28][0]} 정산] 명령으로 재설정 바랍니다.")
+			if basicSetting[18] != "":
+				if str(basicSetting[18]) in channel_id:
+					print('< 척살채널 [' + ctx.guild.get_channel(int(basicSetting[18])).name + '] 접속완료>')
+				else:
+					basicSetting[18] = ""
+					print(f"척살채널 ID 오류! [{command[28][0]} 척살] 명령으로 재설정 바랍니다.")
 			if basicSetting[19] != "":
 				if str(basicSetting[19]) in channel_id:
 					print('< 경주채널 [' + ctx.guild.get_channel(int(basicSetting[19])).name + '] 접속완료>')
 				else:
 					basicSetting[19] = ""
 					print(f"경주채널 ID 오류! [{command[28][0]} 경주] 명령으로 재설정 바랍니다.")
-			#if basicSetting[20] != "":
-			#	if str(basicSetting[20]) in channel_id:
-			#		print('< 아이템채널 [' + ctx.guild.get_channel(int(basicSetting[20])).name + '] 접속완료>')
-			#	else:
-			#		basicSetting[20] = ""
-			#		print(f"아이템채널 ID 오류! [{command[28][0]} 아이템] 명령으로 재설정 바랍니다.")
+			if basicSetting[20] != "":
+				if str(basicSetting[20]) in channel_id:
+					print('< 아이템채널 [' + ctx.guild.get_channel(int(basicSetting[20])).name + '] 접속완료>')
+				else:
+					basicSetting[20] = ""
+					print(f"아이템채널 ID 오류! [{command[28][0]} 아이템] 명령으로 재설정 바랍니다.")
 			if int(basicSetting[13]) != 0 :
 				print('< 보탐봇 재시작 시간 ' + endTime.strftime('%Y-%m-%d ') + endTime.strftime('%H:%M:%S') + ' >')
 				print('< 보탐봇 재시작 주기 ' + basicSetting[13] + '일 >')
