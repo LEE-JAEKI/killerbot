@@ -3491,36 +3491,36 @@ class mainCog(commands.Cog):
 
 	################ 보이스사용 ################ 
 	@commands.command(name=command[38][0], aliases=command[38][1:])
-	3async def command_voice_use(self, ctx : commands.Context):
-	3	if ctx.message.channel.id != basicSetting[7]:
-	3		return
-    3
-	3	inidata_voice_use = repo.get_contents("test_setting.ini")
-	3	file_data_voice_use = base64.b64decode(inidata_voice_use.content)
-	3	file_data_voice_use = file_data_voice_use.decode('utf-8')
-	3	inputData_voice_use = file_data_voice_use.split('\n')
-	3	
-	3	for i in range(len(inputData_voice_use)):
-	3		if inputData_voice_use[i].startswith("voice_use ="):
-	3			inputData_voice_use[i] = f"voice_use = 1\r"
-	3			basicSetting[21] = "1"
-	3	
-	3	result_voice_use = '\n'.join(inputData_voice_use)
-	3	
-	3	contents = repo.get_contents("test_setting.ini")
-	3	repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
-    3
-	3	if basicSetting[6] != "":
-	3		try:
-	3			await self.bot.get_channel(basicSetting[6]).connect(reconnect=True, timeout=5)
-	3		except:
-	3			await ctx.send( '< 음성채널 접속 에러! >', tts=False)
-	3			pass
-	3		if self.bot.voice_clients[0].is_connected() :
-	3			print("보이스 사용 설정 완료!")
-	3			return await ctx.send(f"```보이스를 사용하도록 설정하였습니다.!```")
-    3
-	3	return await ctx.send(f"```보이스 사용 설정이 완료 되었습니다!\n< 음성채널 접속 후 [{command[5][0]}] 명령을 사용 하세요 >```")
+	#async def command_voice_use(self, ctx : commands.Context):
+	#	if ctx.message.channel.id != basicSetting[7]:
+	#		return
+    #
+	#	inidata_voice_use = repo.get_contents("test_setting.ini")
+	#	file_data_voice_use = base64.b64decode(inidata_voice_use.content)
+	#	file_data_voice_use = file_data_voice_use.decode('utf-8')
+	#	inputData_voice_use = file_data_voice_use.split('\n')
+	#	
+	#	for i in range(len(inputData_voice_use)):
+	#		if inputData_voice_use[i].startswith("voice_use ="):
+	#			inputData_voice_use[i] = f"voice_use = 1\r"
+	#			basicSetting[21] = "1"
+	#	
+	#	result_voice_use = '\n'.join(inputData_voice_use)
+	#	
+	#	contents = repo.get_contents("test_setting.ini")
+	#	repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
+    #
+	#	if basicSetting[6] != "":
+	#		try:
+	#			await self.bot.get_channel(basicSetting[6]).connect(reconnect=True, timeout=5)
+	#		except:
+	#			await ctx.send( '< 음성채널 접속 에러! >', tts=False)
+	#			pass
+	#		if self.bot.voice_clients[0].is_connected() :
+	#			print("보이스 사용 설정 완료!")
+	#			return await ctx.send(f"```보이스를 사용하도록 설정하였습니다.!```")
+    #
+	#	return await ctx.send(f"```보이스 사용 설정이 완료 되었습니다!\n< 음성채널 접속 후 [{command[5][0]}] 명령을 사용 하세요 >```")
 
 	################ 보이스미사용 ################ 
 	@commands.command(name=command[39][0], aliases=command[39][1:])
