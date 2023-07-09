@@ -2079,6 +2079,82 @@ class mainCog(commands.Cog):
 		else:
 			return
 
+	################ 멍보스타임 일괄 설정 ################
+	@commands.command(name=command[40][0], aliases=command[40][1:])
+	async def mungBossInput_(self, ctx):
+		global basicSetting
+		global bossData
+		global fixed_bossData
+
+		global bossTime
+		global tmp_bossTime
+
+		global fixed_bossTime
+
+		global bossTimeString
+		global bossDateString
+		global tmp_bossTimeString
+		global tmp_bossDateString
+
+		global bossFlag
+		global bossFlag0
+		global bossMungFlag
+		global bossMungCnt
+		
+		if ctx.message.channel.id == basicSetting[7]:
+			msg = ctx.message.content[len(ctx.invoked_with)+1:]
+			for i in range(bossNum):
+				if bossData[i][2] == "1" and bossTimeString[i] == '99:99:99':
+					tmp_msg = msg
+					if len(tmp_msg) > 3 :
+						if tmp_msg.find(':') != -1 :
+							chkpos = tmp_msg.find(':')
+							hours1 = tmp_msg[chkpos-2:chkpos]
+							minutes1 = tmp_msg[chkpos+1:chkpos+3]
+							now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
+						else:
+							chkpos = len(tmp_msg)-2
+							hours1 = tmp_msg[chkpos-2:chkpos]
+							minutes1 = tmp_msg[chkpos:chkpos+2]
+							now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
+					else:
+						now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+						tmp_now = now2
+						
+					bossFlag[i] = False
+					bossFlag0[i] = False
+					bossMungFlag[i] = False
+					bossMungCnt[i] = 1
+
+					if tmp_now > now2 :
+						tmp_now = tmp_now + datetime.timedelta(days=int(-1))
+						
+					if tmp_now < now2 : 
+						deltaTime = datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+						while now2 > tmp_now :
+							tmp_now = tmp_now + deltaTime
+							bossMungCnt[i] = bossMungCnt[i] + 1
+						now2 = tmp_now
+						bossMungCnt[i] = bossMungCnt[i] - 1
+					else :
+						now2 = now2 + datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+								
+					tmp_bossTime[i] = bossTime[i] = nextTime = now2
+					tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
+					tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
+
+			await dbSave()
+			await dbLoad()
+			await dbSave()
+			
+			await ctx.send('<멍보스 일괄 입력 완료>', tts=False)
+			print ("<멍보스 일괄 입력 완료>")
+		else:
+			return
 
 	################ 가장 근접한 보스타임 출력 ################ 
 	@commands.command(name=command[15][0], aliases=command[15][1:])
@@ -2628,8 +2704,126 @@ class mainCog(commands.Cog):
 		else:
 			return
 
+	################ 킬초기화 ################ 
+	@commands.command(name=command[24][0], aliases=command[24][1:])
+	async def killInit_(self, ctx):
+		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+			return
 
-	
+		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+			global kill_Data
+
+			kill_Data = {}
+			
+			await init_data_list('kill_list.ini', '-----척살명단-----')
+			return await ctx.send( '< 킬 목록 초기화완료 >', tts=False)
+		else:
+			return
+
+	################ 킬명단 확인 및 추가################ 
+	@commands.command(name=command[25][0], aliases=command[25][1:]) 
+	async def killList_(self, ctx, *, args : str = None):
+		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+			return
+
+		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+			global kill_Data
+
+			if not args:
+				kill_output = ''
+				for key, value in kill_Data.items():
+					kill_output += ':skull_crossbones: ' + str(key) + ' : ' + str(value) + '번 따히!\n'
+
+				if kill_output != '' :
+					embed = discord.Embed(
+							description= str(kill_output),
+							color=0xff00ff
+							)
+				else :
+					embed = discord.Embed(
+							description= '등록된 킬 목록이 없습니다. 분발하세요!',
+							color=0xff00ff
+							)
+				return await ctx.send(embed=embed, tts=False)
+
+			if args in kill_Data:
+				kill_Data[args] += 1
+			else:
+				kill_Data[args] = 1
+					
+			embed = discord.Embed(
+					description= ':skull_crossbones: ' + args + ' 따히! [' + str(kill_Data[args]) + '번]\n',
+					color=0xff00ff
+					)
+			return await ctx.send(embed=embed, tts=False)
+		else:
+			return
+
+	################ 킬삭제 ################ 
+	@commands.command(name=command[26][0], aliases=command[26][1:])
+	async def killDel_(self, ctx, *, args : str = None):
+		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+			return
+
+		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+			global kill_Data
+			
+			if not args:
+				return await ctx.send( '```제대로 된 아이디를 입력해주세요!\n```', tts=False)
+			
+			if args in kill_Data:
+				del kill_Data[args]
+				return await ctx.send( ':angel: ' + args + ' 삭제완료!', tts=False)
+			else :				
+				return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
+		else:
+			return
+
+	################ 킬 차감 ################ 
+	@commands.command(name=command[33][0], aliases=command[33][1:]) 
+	async def killSubtract_(self, ctx, *, args : str = None):
+		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+			return
+
+		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+			global kill_Data
+
+			if not args:
+				return await ctx.send(f'{command[33][0]} [아이디] 혹은 {command[33][0]} [아이디] [횟수] 양식에 맞춰 입력해주세요!', tts = False)
+
+			input_data = args.split()
+			
+			if len(input_data) == 1:
+				kill_name = args
+				count = 1
+			elif len(input_data) == 2:
+				kill_name = input_data[0]
+				try:
+					count = int(input_data[1])
+				except ValueError:
+					return await ctx.send(f'[횟수]는 숫자로 입력바랍니다')
+			else:
+				return await ctx.send(f'{command[33][0]} [아이디] 혹은 {command[33][0]} [아이디] [횟수] 양식에 맞춰 입력해주세요!', tts = False)
+
+			if kill_name in kill_Data:
+				if kill_Data[kill_name] < int(count):
+					return await ctx.send( f"등록된 킬 횟수[{str(kill_Data[kill_name])}번]보다 차감 횟수[{str(count)}번]가 많습니다. 킬 횟수에 맞게 재입력 바랍니다.", tts=False)
+				else:
+					kill_Data[kill_name] -= int(count)
+			else:
+				return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
+					
+			embed = discord.Embed(
+					description= f':angel: [{kill_name}] [{str(count)}번] 차감 완료! [잔여 : {str(kill_Data[kill_name])}번]\n',
+					color=0xff00ff
+					)
+			
+			if kill_Data[kill_name] == 0:
+				del kill_Data[kill_name]
+
+			return await ctx.send(embed=embed, tts=False)
+		else:
+			return
 
 	################ 경주 ################ 
 	@commands.command(name=command[27][0], aliases=command[27][1:])
@@ -2648,9 +2842,9 @@ class mainCog(commands.Cog):
 			random_pos = []
 			racing_result = []
 			output = ':camera: :camera: :camera: 신나는 레이싱! :camera: :camera: :camera:\n'
-			#racing_unit = [':giraffe:', ':elephant:', ':tiger2:', ':hippopotamus:', ':crocodile:',':leopard:',':ox:', ':sheep:', ':pig2:',':dromedary_camel:',':dragon:',':rabbit2:'] #동물스킨
-			#racing_unit = [':red_car:', ':taxi:', ':bus:', ':trolleybus:', ':race_car:', ':police_car:', ':ambulance:', ':fire_engine:', ':minibus:', ':truck:', ':articulated_lorry:', ':tractor:', ':scooter:', ':manual_wheelchair:', ':motor_scooter:', ':auto_rickshaw:', ':blue_car:', ':bike:', ':helicopter:', ':steam_locomotive:']  #탈것스킨
-			#random.shuffle(racing_unit) 
+			racing_unit = [':giraffe:', ':elephant:', ':tiger2:', ':hippopotamus:', ':crocodile:',':leopard:',':ox:', ':sheep:', ':pig2:',':dromedary_camel:',':dragon:',':rabbit2:'] #동물스킨
+			racing_unit = [':red_car:', ':taxi:', ':bus:', ':trolleybus:', ':race_car:', ':police_car:', ':ambulance:', ':fire_engine:', ':minibus:', ':truck:', ':articulated_lorry:', ':tractor:', ':scooter:', ':manual_wheelchair:', ':motor_scooter:', ':auto_rickshaw:', ':blue_car:', ':bike:', ':helicopter:', ':steam_locomotive:']  #탈것스킨
+			random.shuffle(racing_unit) 
 			racing_member = msg.split(" ")
 
 			racing_unit = []
