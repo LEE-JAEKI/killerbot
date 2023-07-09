@@ -2705,125 +2705,125 @@ class mainCog(commands.Cog):
 			return
 
 	################ 킬초기화 ################ 
-	@commands.command(name=command[24][0], aliases=command[24][1:])
-	async def killInit_(self, ctx):
-		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
-			global kill_Data
-
-			kill_Data = {}
-			
-			await init_data_list('kill_list.ini', '-----척살명단-----')
-			return await ctx.send( '< 킬 목록 초기화완료 >', tts=False)
-		else:
-			return
+	#@commands.command(name=command[24][0], aliases=command[24][1:])
+	#async def killInit_(self, ctx):
+	#	if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+	#		global kill_Data
+    #
+	#		kill_Data = {}
+	#		
+	#		await init_data_list('kill_list.ini', '-----척살명단-----')
+	#		return await ctx.send( '< 킬 목록 초기화완료 >', tts=False)
+	#	else:
+	#		return
 
 	################ 킬명단 확인 및 추가################ 
-	@commands.command(name=command[25][0], aliases=command[25][1:]) 
-	async def killList_(self, ctx, *, args : str = None):
-		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
-			global kill_Data
-
-			if not args:
-				kill_output = ''
-				for key, value in kill_Data.items():
-					kill_output += ':skull_crossbones: ' + str(key) + ' : ' + str(value) + '번 따히!\n'
-
-				if kill_output != '' :
-					embed = discord.Embed(
-							description= str(kill_output),
-							color=0xff00ff
-							)
-				else :
-					embed = discord.Embed(
-							description= '등록된 킬 목록이 없습니다. 분발하세요!',
-							color=0xff00ff
-							)
-				return await ctx.send(embed=embed, tts=False)
-
-			if args in kill_Data:
-				kill_Data[args] += 1
-			else:
-				kill_Data[args] = 1
-					
-			embed = discord.Embed(
-					description= ':skull_crossbones: ' + args + ' 따히! [' + str(kill_Data[args]) + '번]\n',
-					color=0xff00ff
-					)
-			return await ctx.send(embed=embed, tts=False)
-		else:
-			return
+	#@commands.command(name=command[25][0], aliases=command[25][1:]) 
+	#async def killList_(self, ctx, *, args : str = None):
+	#	if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+	#		global kill_Data
+    #
+	#		if not args:
+	#			kill_output = ''
+	#			for key, value in kill_Data.items():
+	#				kill_output += ':skull_crossbones: ' + str(key) + ' : ' + str(value) + '번 따히!\n'
+    #
+	#			if kill_output != '' :
+	#				embed = discord.Embed(
+	#						description= str(kill_output),
+	#						color=0xff00ff
+	#						)
+	#			else :
+	#				embed = discord.Embed(
+	#						description= '등록된 킬 목록이 없습니다. 분발하세요!',
+	#						color=0xff00ff
+	#						)
+	#			return await ctx.send(embed=embed, tts=False)
+    #
+	#		if args in kill_Data:
+	#			kill_Data[args] += 1
+	#		else:
+	#			kill_Data[args] = 1
+	#				
+	#		embed = discord.Embed(
+	#				description= ':skull_crossbones: ' + args + ' 따히! [' + str(kill_Data[args]) + '번]\n',
+	#				color=0xff00ff
+	#				)
+	#		return await ctx.send(embed=embed, tts=False)
+	#	else:
+	#		return
 
 	################ 킬삭제 ################ 
-	@commands.command(name=command[26][0], aliases=command[26][1:])
-	async def killDel_(self, ctx, *, args : str = None):
-		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
-			global kill_Data
-			
-			if not args:
-				return await ctx.send( '```제대로 된 아이디를 입력해주세요!\n```', tts=False)
-			
-			if args in kill_Data:
-				del kill_Data[args]
-				return await ctx.send( ':angel: ' + args + ' 삭제완료!', tts=False)
-			else :				
-				return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
-		else:
-			return
+	#@commands.command(name=command[26][0], aliases=command[26][1:])
+	#async def killDel_(self, ctx, *, args : str = None):
+	#	if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+	#		global kill_Data
+	#		
+	#		if not args:
+	#			return await ctx.send( '```제대로 된 아이디를 입력해주세요!\n```', tts=False)
+	#		
+	#		if args in kill_Data:
+	#			del kill_Data[args]
+	#			return await ctx.send( ':angel: ' + args + ' 삭제완료!', tts=False)
+	#		else :				
+	#			return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
+	#	else:
+	#		return
 
 	################ 킬 차감 ################ 
-	@commands.command(name=command[33][0], aliases=command[33][1:]) 
-	async def killSubtract_(self, ctx, *, args : str = None):
-		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
-			global kill_Data
-
-			if not args:
-				return await ctx.send(f'{command[33][0]} [아이디] 혹은 {command[33][0]} [아이디] [횟수] 양식에 맞춰 입력해주세요!', tts = False)
-
-			input_data = args.split()
-			
-			if len(input_data) == 1:
-				kill_name = args
-				count = 1
-			elif len(input_data) == 2:
-				kill_name = input_data[0]
-				try:
-					count = int(input_data[1])
-				except ValueError:
-					return await ctx.send(f'[횟수]는 숫자로 입력바랍니다')
-			else:
-				return await ctx.send(f'{command[33][0]} [아이디] 혹은 {command[33][0]} [아이디] [횟수] 양식에 맞춰 입력해주세요!', tts = False)
-
-			if kill_name in kill_Data:
-				if kill_Data[kill_name] < int(count):
-					return await ctx.send( f"등록된 킬 횟수[{str(kill_Data[kill_name])}번]보다 차감 횟수[{str(count)}번]가 많습니다. 킬 횟수에 맞게 재입력 바랍니다.", tts=False)
-				else:
-					kill_Data[kill_name] -= int(count)
-			else:
-				return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
-					
-			embed = discord.Embed(
-					description= f':angel: [{kill_name}] [{str(count)}번] 차감 완료! [잔여 : {str(kill_Data[kill_name])}번]\n',
-					color=0xff00ff
-					)
-			
-			if kill_Data[kill_name] == 0:
-				del kill_Data[kill_name]
-
-			return await ctx.send(embed=embed, tts=False)
-		else:
-			return
+	#@commands.command(name=command[33][0], aliases=command[33][1:]) 
+	#async def killSubtract_(self, ctx, *, args : str = None):
+	#	if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
+	#		global kill_Data
+    #
+	#		if not args:
+	#			return await ctx.send(f'{command[33][0]} [아이디] 혹은 {command[33][0]} [아이디] [횟수] 양식에 맞춰 입력해주세요!', tts = False)
+    #
+	#		input_data = args.split()
+	#		
+	#		if len(input_data) == 1:
+	#			kill_name = args
+	#			count = 1
+	#		elif len(input_data) == 2:
+	#			kill_name = input_data[0]
+	#			try:
+	#				count = int(input_data[1])
+	#			except ValueError:
+	#				return await ctx.send(f'[횟수]는 숫자로 입력바랍니다')
+	#		else:
+	#			return await ctx.send(f'{command[33][0]} [아이디] 혹은 {command[33][0]} [아이디] [횟수] 양식에 맞춰 입력해주세요!', tts = False)
+    #
+	#		if kill_name in kill_Data:
+	#			if kill_Data[kill_name] < int(count):
+	#				return await ctx.send( f"등록된 킬 횟수[{str(kill_Data[kill_name])}번]보다 차감 횟수[{str(count)}번]가 많습니다. 킬 횟수에 맞게 재입력 바랍니다.", tts=False)
+	#			else:
+	#				kill_Data[kill_name] -= int(count)
+	#		else:
+	#			return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
+	#				
+	#		embed = discord.Embed(
+	#				description= f':angel: [{kill_name}] [{str(count)}번] 차감 완료! [잔여 : {str(kill_Data[kill_name])}번]\n',
+	#				color=0xff00ff
+	#				)
+	#		
+	#		if kill_Data[kill_name] == 0:
+	#			del kill_Data[kill_name]
+    #
+	#		return await ctx.send(embed=embed, tts=False)
+	#	else:
+	#		return
 
 	################ 경주 ################ 
 	@commands.command(name=command[27][0], aliases=command[27][1:])
@@ -3168,494 +3168,494 @@ class mainCog(commands.Cog):
 			return await ctx.send(f'```올바른 명령어를 입력해주세요.```', tts=False)
 
 	################ 아이템초기화 확인 ################ 
-	@commands.command(name=command[29][0], aliases=command[29][1:])
-	async def itemInit_(self, ctx):
-		if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
-			global item_Data
-
-			item_Data = {}
-
-			await init_data_list('item_list.ini', '-----아이템 목록-----')
-			return await ctx.send( '< 아이템 목록 초기화완료 >', tts=False)
-		else:
-			return
+	#@commands.command(name=command[29][0], aliases=command[29][1:])
+	#async def itemInit_(self, ctx):
+	#	if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
+	#		global item_Data
+    #
+	#		item_Data = {}
+    #
+	#		await init_data_list('item_list.ini', '-----아이템 목록-----')
+	#		return await ctx.send( '< 아이템 목록 초기화완료 >', tts=False)
+	#	else:
+	#		return
 
 	################ 아이템 목록 확인 및 추가 ################ 
-	@commands.command(name=command[30][0], aliases=command[30][1:]) 
-	async def itemList_(self, ctx, *, args : str = None):
-		if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
-			global item_Data
-			
-			if not args:
-				sorted_item_list = sorted(item_Data.items(), key=lambda x: x[0])
-
-				embed_list : list = []
-				embed_index : int = 0
-				embed_cnt : int = 0
-				embed = discord.Embed(title = '', description = f'`{self.bot.user.name}\'s 창고`', color = 0x00ff00)
-				
-				embed_list.append(embed)
-
-				if len(sorted_item_list) > 0 :
-					for item_id, count in sorted_item_list:
-						embed_cnt += 1
-						if embed_cnt > 24 :
-							embed_cnt = 0
-							embed_index += 1
-							tmp_embed = discord.Embed(
-								title = "",
-								description = "",
-								color=0x00ff00
-								)
-							embed_list.append(tmp_embed)
-						embed_list[embed_index].add_field(name = item_id, value = count)
-					embed_list[len(embed_list)-1].set_footer(text = f"전체 아이템 종류  :  {len(item_Data)}개")
-					if len(embed_list) > 1:
-						for embed_data in embed_list:
-							await asyncio.sleep(0.1)
-							await ctx.send(embed = embed_data)
-						return
-					else:
-						return await ctx.send(embed=embed, tts=False)
-				else :
-					embed.add_field(name = '\u200b\n', value = '창고가 비었습니다.\n\u200b')
-					return await ctx.send(embed=embed, tts=False)
-
-			input_data = args.split()
-			
-			if len(input_data) == 1:
-				item_name = args
-				count = 1
-			elif len(input_data) == 2:
-				item_name = input_data[0]
-				try:
-					count = int(input_data[1])
-				except ValueError:
-					return await ctx.send(f'아이템 [개수]는 숫자로 입력바랍니다')
-			else:
-				return await ctx.send(f'{command[30][0]} [아이템명] 혹은 {command[30][0]} [아이템명] [개수] 양식에 맞춰 입력해주세요!', tts = False)	
-
-			if item_name in item_Data:
-				item_Data[item_name] += int(count)
-			else:
-				item_Data[item_name] = int(count)
-					
-			embed = discord.Embed(
-					description= f':inbox_tray: **[{item_name}] [{str(count)}개]** 등록 완료! [잔여 : {str(item_Data[item_name])}개]\n',
-					color=0xff00ff
-					)
-			return await ctx.send(embed=embed, tts=False)
-
-		else:
-			return
+	#@commands.command(name=command[30][0], aliases=command[30][1:]) 
+	#async def itemList_(self, ctx, *, args : str = None):
+	#	if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
+	#		global item_Data
+	#		
+	#		if not args:
+	#			sorted_item_list = sorted(item_Data.items(), key=lambda x: x[0])
+    #
+	#			embed_list : list = []
+	#			embed_index : int = 0
+	#			embed_cnt : int = 0
+	#			embed = discord.Embed(title = '', description = f'`{self.bot.user.name}\'s 창고`', color = 0x00ff00)
+	#			
+	#			embed_list.append(embed)
+    #
+	#			if len(sorted_item_list) > 0 :
+	#				for item_id, count in sorted_item_list:
+	#					embed_cnt += 1
+	#					if embed_cnt > 24 :
+	#						embed_cnt = 0
+	#						embed_index += 1
+	#						tmp_embed = discord.Embed(
+	#							title = "",
+	#							description = "",
+	#							color=0x00ff00
+	#							)
+	#						embed_list.append(tmp_embed)
+	#					embed_list[embed_index].add_field(name = item_id, value = count)
+	#				embed_list[len(embed_list)-1].set_footer(text = f"전체 아이템 종류  :  {len(item_Data)}개")
+	#				if len(embed_list) > 1:
+	#					for embed_data in embed_list:
+	#						await asyncio.sleep(0.1)
+	#						await ctx.send(embed = embed_data)
+	#					return
+	#				else:
+	#					return await ctx.send(embed=embed, tts=False)
+	#			else :
+	#				embed.add_field(name = '\u200b\n', value = '창고가 비었습니다.\n\u200b')
+	#				return await ctx.send(embed=embed, tts=False)
+    #
+	#		input_data = args.split()
+	#		
+	#		if len(input_data) == 1:
+	#			item_name = args
+	#			count = 1
+	#		elif len(input_data) == 2:
+	#			item_name = input_data[0]
+	#			try:
+	#				count = int(input_data[1])
+	#			except ValueError:
+	#				return await ctx.send(f'아이템 [개수]는 숫자로 입력바랍니다')
+	#		else:
+	#			return await ctx.send(f'{command[30][0]} [아이템명] 혹은 {command[30][0]} [아이템명] [개수] 양식에 맞춰 입력해주세요!', tts = False)	
+    #
+	#		if item_name in item_Data:
+	#			item_Data[item_name] += int(count)
+	#		else:
+	#			item_Data[item_name] = int(count)
+	#				
+	#		embed = discord.Embed(
+	#				description= f':inbox_tray: **[{item_name}] [{str(count)}개]** 등록 완료! [잔여 : {str(item_Data[item_name])}개]\n',
+	#				color=0xff00ff
+	#				)
+	#		return await ctx.send(embed=embed, tts=False)
+    #
+	#	else:
+	#		return
 
 	################ 아이템 삭제 ################ 
-	@commands.command(name=command[31][0], aliases=command[31][1:])
-	async def itemDel_(self, ctx, *, args : str = None):
-		if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
-			global item_Data
-
-			if not args:
-				return await ctx.send( f'{command[31][0]} [아이템명] 양식에 맞춰 입력해주세요!', tts = False)
-
-			if args in item_Data:
-				del item_Data[args]
-				embed = discord.Embed(
-					description= ':outbox_tray: ' + args + ' 삭제완료!',
-					color=0xff00ff
-					)
-				return await ctx.send(embed=embed, tts=False)
-			else :				
-				return await ctx.send( '```아이템 목록에 등록되어 있지 않습니다!\n```', tts=False)
-		else:
-			return
+	#@commands.command(name=command[31][0], aliases=command[31][1:])
+	#async def itemDel_(self, ctx, *, args : str = None):
+	#	if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
+	#		global item_Data
+    #
+	#		if not args:
+	#			return await ctx.send( f'{command[31][0]} [아이템명] 양식에 맞춰 입력해주세요!', tts = False)
+    #
+	#		if args in item_Data:
+	#			del item_Data[args]
+	#			embed = discord.Embed(
+	#				description= ':outbox_tray: ' + args + ' 삭제완료!',
+	#				color=0xff00ff
+	#				)
+	#			return await ctx.send(embed=embed, tts=False)
+	#		else :				
+	#			return await ctx.send( '```아이템 목록에 등록되어 있지 않습니다!\n```', tts=False)
+	#	else:
+	#		return
 
 	################ 아이템 차감 ################ 
-	@commands.command(name=command[32][0], aliases=command[32][1:]) 
-	async def itemSubtract_(self, ctx, *, args : str = None):
-		if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
-			global item_Data
-
-			if not args:
-				return await ctx.send(f'{command[32][0]} [아이템명] 혹은 {command[32][0]} [아이템명] [개수] 양식에 맞춰 입력해주세요!', tts = False)
-
-			input_data = args.split()
-			
-			if len(input_data) == 1:
-				item_name = args
-				count = 1
-			elif len(input_data) == 2:
-				item_name = input_data[0]
-				try:
-					count = int(input_data[1])
-				except ValueError:
-					return await ctx.send(f'아이템 [개수]는 숫자로 입력바랍니다')
-			else:
-				return await ctx.send(f'{command[32][0]} [아이템명] 혹은 {command[32][0]} [아이템명] [개수] 양식에 맞춰 입력해주세요!', tts = False)	
-
-			if item_name in item_Data:
-				if item_Data[item_name] < int(count):
-					return await ctx.send( f"등록된 아이템 개수[{str(item_Data[item_name])}개]보다 차감 개수[{str(count)}개]가 많습니다. 등록 개수에 맞게 재입력 바랍니다.", tts=False)
-				else:
-					item_Data[item_name] -= int(count)
-			else:
-				return await ctx.send( '```아이템 목록에 등록되어 있지 않습니다!\n```', tts=False)
-					
-			embed = discord.Embed(
-					description= f':outbox_tray: **[{item_name}] [{str(count)}개]** 차감 완료! [잔여 : {str(item_Data[item_name])}개]\n',
-					color=0xff00ff
-					)
-			
-			if item_Data[item_name] == 0:
-				del item_Data[item_name]
-
-			return await ctx.send(embed=embed, tts=False)
-		else:
-			return
+	#@commands.command(name=command[32][0], aliases=command[32][1:]) 
+	#async def itemSubtract_(self, ctx, *, args : str = None):
+	#	if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
+	#		global item_Data
+    #
+	#		if not args:
+	#			return await ctx.send(f'{command[32][0]} [아이템명] 혹은 {command[32][0]} [아이템명] [개수] 양식에 맞춰 입력해주세요!', tts = False)
+    #
+	#		input_data = args.split()
+	#		
+	#		if len(input_data) == 1:
+	#			item_name = args
+	#			count = 1
+	#		elif len(input_data) == 2:
+	#			item_name = input_data[0]
+	#			try:
+	#				count = int(input_data[1])
+	#			except ValueError:
+	#				return await ctx.send(f'아이템 [개수]는 숫자로 입력바랍니다')
+	#		else:
+	#			return await ctx.send(f'{command[32][0]} [아이템명] 혹은 {command[32][0]} [아이템명] [개수] 양식에 맞춰 입력해주세요!', tts = False)	
+    #
+	#		if item_name in item_Data:
+	#			if item_Data[item_name] < int(count):
+	#				return await ctx.send( f"등록된 아이템 개수[{str(item_Data[item_name])}개]보다 차감 개수[{str(count)}개]가 많습니다. 등록 개수에 맞게 재입력 바랍니다.", tts=False)
+	#			else:
+	#				item_Data[item_name] -= int(count)
+	#		else:
+	#			return await ctx.send( '```아이템 목록에 등록되어 있지 않습니다!\n```', tts=False)
+	#				
+	#		embed = discord.Embed(
+	#				description= f':outbox_tray: **[{item_name}] [{str(count)}개]** 차감 완료! [잔여 : {str(item_Data[item_name])}개]\n',
+	#				color=0xff00ff
+	#				)
+	#		
+	#		if item_Data[item_name] == 0:
+	#			del item_Data[item_name]
+    #
+	#		return await ctx.send(embed=embed, tts=False)
+	#	else:
+	#		return
 
 	################ 서버 나가기 ################ 		
-	@commands.has_permissions(manage_messages=True)
-	@commands.command(name=command[34][0], aliases=command[34][1:])
-	async def leaveGuild_(self, ctx):
-		if ctx.message.channel.id == basicSetting[7]:
-			guild_list : str = ""
-			guild_name : str = ""
-
-			for i, gulid_name in enumerate(self.bot.guilds):
-				guild_list += f"`{i+1}.` {gulid_name}\n"
-
-			embed = discord.Embed(
-				title = "----- 서버 목록 -----",
-				description = guild_list,
-				color=0x00ff00
-				)
-			await ctx.send(embed = embed)
-
-			try:
-				await ctx.send(f"```떠나고 싶은 서버의 [숫자]를 입력하여 선택해 주세요```")
-				message_result : discord.Message = await self.bot.wait_for("message", timeout = 10, check=(lambda message: message.channel == ctx.message.channel and message.author == ctx.message.author))
-			except asyncio.TimeoutError:
-				return await ctx.send(f"```서버 선택 시간이 초과됐습니다! 필요시 명령어를 재입력해 주세요```")
-				
-			try:
-				guild_name = self.bot.guilds[int(message_result.content)-1].name
-				await self.bot.get_guild(self.bot.guilds[int(message_result.content)-1].id).leave()
-				return await ctx.send(f"```[{guild_name}] 서버에서 떠났습니다.!```")
-			except ValueError:
-				return			
+	#@commands.has_permissions(manage_messages=True)
+	#@commands.command(name=command[34][0], aliases=command[34][1:])
+	#async def leaveGuild_(self, ctx):
+	#	if ctx.message.channel.id == basicSetting[7]:
+	#		guild_list : str = ""
+	#		guild_name : str = ""
+    #
+	#		for i, gulid_name in enumerate(self.bot.guilds):
+	#			guild_list += f"`{i+1}.` {gulid_name}\n"
+    #
+	#		embed = discord.Embed(
+	#			title = "----- 서버 목록 -----",
+	#			description = guild_list,
+	#			color=0x00ff00
+	#			)
+	#		await ctx.send(embed = embed)
+    #
+	#		try:
+	#			await ctx.send(f"```떠나고 싶은 서버의 [숫자]를 입력하여 선택해 주세요```")
+	#			message_result : discord.Message = await self.bot.wait_for("message", timeout = 10, check=(lambda message: message.channel == ctx.message.channel and message.author == ctx.message.author))
+	#		except asyncio.TimeoutError:
+	#			return await ctx.send(f"```서버 선택 시간이 초과됐습니다! 필요시 명령어를 재입력해 주세요```")
+	#			
+	#		try:
+	#			guild_name = self.bot.guilds[int(message_result.content)-1].name
+	#			await self.bot.get_guild(self.bot.guilds[int(message_result.content)-1].id).leave()
+	#			return await ctx.send(f"```[{guild_name}] 서버에서 떠났습니다.!```")
+	#		except ValueError:
+	#			return			
 
 	################ 수수료 계산기 ################ 
-	@commands.command(name=command[35][0], aliases=command[35][1:])
-	async def tax_check(self, ctx, *, args : str = None):
-		if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
-			if not args:
-				return await ctx.send(f"**{command[35][0]} [판매금액] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
-			
-			input_money_data : list = args.split()
-			len_input_money_data = len(input_money_data)
-
-			try:
-				for i in range(len_input_money_data):
-					input_money_data[i] = int(input_money_data[i])
-			except ValueError:
-				return await ctx.send(f"**[판매금액] (거래소세금)**은 숫자로 입력 해주세요.")
-
-			if len_input_money_data < 1 or len_input_money_data > 3:
-				return await ctx.send(f"**{command[35][0]} [판매금액] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
-			elif len_input_money_data == 2:
-				tax = input_money_data[1]
-			else:
-				tax = 5
-
-			price_first_tax = int(input_money_data[0] * ((100-tax)/100))
-			price_second_tax = int(price_first_tax * ((100-tax)/100))
-			price_rev_tax = int((input_money_data[0] * 100)/(100-tax)+0.5)
-
-			embed = discord.Embed(
-					title = f"🧮  수수료 계산결과 (세율 {tax}% 기준) ",
-					description = f"",
-					color=0x00ff00
-					)
-			embed.add_field(name = "⚖️ 수수료 지원", value = f"```등록가 : {price_rev_tax}\n수령가 : {input_money_data[0]}\n세 금 : {price_rev_tax-input_money_data[0]}```")
-			embed.add_field(name = "⚖️ 1차 거래", value = f"```등록가 : {input_money_data[0]}\n정산가 : {price_first_tax}\n세 금 : {input_money_data[0]-price_first_tax}```")
-			embed.add_field(name = "⚖️ 2차 거래", value = f"```등록가 : {price_first_tax}\n정산가 : {price_second_tax}\n세 금 : {price_first_tax-price_second_tax}```")
-			return await ctx.send(embed = embed)
-		else:
-			return
+	#@commands.command(name=command[35][0], aliases=command[35][1:])
+	#async def tax_check(self, ctx, *, args : str = None):
+	#	if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
+	#		if not args:
+	#			return await ctx.send(f"**{command[35][0]} [판매금액] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
+	#		
+	#		input_money_data : list = args.split()
+	#		len_input_money_data = len(input_money_data)
+    #
+	#		try:
+	#			for i in range(len_input_money_data):
+	#				input_money_data[i] = int(input_money_data[i])
+	#		except ValueError:
+	#			return await ctx.send(f"**[판매금액] (거래소세금)**은 숫자로 입력 해주세요.")
+    #
+	#		if len_input_money_data < 1 or len_input_money_data > 3:
+	#			return await ctx.send(f"**{command[35][0]} [판매금액] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
+	#		elif len_input_money_data == 2:
+	#			tax = input_money_data[1]
+	#		else:
+	#			tax = 5
+    #
+	#		price_first_tax = int(input_money_data[0] * ((100-tax)/100))
+	#		price_second_tax = int(price_first_tax * ((100-tax)/100))
+	#		price_rev_tax = int((input_money_data[0] * 100)/(100-tax)+0.5)
+    #
+	#		embed = discord.Embed(
+	#				title = f"🧮  수수료 계산결과 (세율 {tax}% 기준) ",
+	#				description = f"",
+	#				color=0x00ff00
+	#				)
+	#		embed.add_field(name = "⚖️ 수수료 지원", value = f"```등록가 : {price_rev_tax}\n수령가 : {input_money_data[0]}\n세 금 : {price_rev_tax-input_money_data[0]}```")
+	#		embed.add_field(name = "⚖️ 1차 거래", value = f"```등록가 : {input_money_data[0]}\n정산가 : {price_first_tax}\n세 금 : {input_money_data[0]-price_first_tax}```")
+	#		embed.add_field(name = "⚖️ 2차 거래", value = f"```등록가 : {price_first_tax}\n정산가 : {price_second_tax}\n세 금 : {price_first_tax-price_second_tax}```")
+	#		return await ctx.send(embed = embed)
+	#	else:
+	#		return
 
 	################ 페이백 계산기 ################ 
-	@commands.command(name=command[36][0], aliases=command[36][1:])
-	async def payback_check(self, ctx, *, args : str = None):
-		if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
+	#@commands.command(name=command[36][0], aliases=command[36][1:])
+	#async def payback_check(self, ctx, *, args : str = None):
+	#	if basicSetting[20] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
+	#		if not args:
+	#			return await ctx.send(f"**{command[36][0]} [거래소가격] [실거래가] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
+	#		
+	#		input_money_data : list = args.split()
+	#		len_input_money_data = len(input_money_data)
+    #
+	#		try:
+	#			for i in range(len_input_money_data):
+	#				input_money_data[i] = int(input_money_data[i])
+	#		except ValueError:
+	#			return await ctx.send(f"**[판매금액] (거래소세금)**은 숫자로 입력 해주세요.")
+    #
+	#		if len_input_money_data < 2 or len_input_money_data > 4:
+	#			return await ctx.send(f"**{command[36][0]} [거래소가격] [실거래가] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
+	#		elif len_input_money_data == 3:
+	#			tax = input_money_data[2]
+	#		else:
+	#			tax = 5
+    #
+	#		price_reg_tax = int(input_money_data[0] * ((100-tax)/100))
+	#		price_real_tax = int(input_money_data[1] * ((100-tax)/100))
+    #
+	#		reault_payback = price_reg_tax - price_real_tax
+	#		reault_payback1= price_reg_tax - input_money_data[1]
+    #
+	#		embed = discord.Embed(
+	#				title = f"🧮  페이백 계산결과1 (세율 {tax}% 기준) ",
+	#				description = f"**```fix\n{reault_payback}```**",
+	#				color=0x00ff00
+	#				)
+	#		embed.add_field(name = "⚖️ 거래소", value = f"```등록가 : {input_money_data[0]}\n정산가 : {price_reg_tax}\n세 금 : {input_money_data[0]-price_reg_tax}```")
+	#		embed.add_field(name = "🕵️ 실거래", value = f"```등록가 : {input_money_data[1]}\n정산가 : {price_real_tax}\n세 금 : {input_money_data[1]-price_real_tax}```")
+	#		await ctx.send(embed = embed)
+    #
+	#		embed2 = discord.Embed(
+	#				title = f"🧮  페이백 계산결과2 (세율 {tax}% 기준) ",
+	#				description = f"**```fix\n{reault_payback1}```**",
+	#				color=0x00ff00
+	#				)
+	#		embed2.add_field(name = "⚖️ 거래소", value = f"```등록가 : {input_money_data[0]}\n정산가 : {price_reg_tax}\n세 금 : {input_money_data[0]-price_reg_tax}```")
+	#		embed2.add_field(name = "🕵️ 실거래", value = f"```내판가 : {input_money_data[1]}```")
+	#		return await ctx.send(embed = embed2)
+	#	else:
+	#		return
 
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[20]:
-			if not args:
-				return await ctx.send(f"**{command[36][0]} [거래소가격] [실거래가] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
-			
-			input_money_data : list = args.split()
-			len_input_money_data = len(input_money_data)
-
-			try:
-				for i in range(len_input_money_data):
-					input_money_data[i] = int(input_money_data[i])
-			except ValueError:
-				return await ctx.send(f"**[판매금액] (거래소세금)**은 숫자로 입력 해주세요.")
-
-			if len_input_money_data < 2 or len_input_money_data > 4:
-				return await ctx.send(f"**{command[36][0]} [거래소가격] [실거래가] (거래소세금)** 양식으로 입력 해주세요\n※ 거래소세금은 미입력시 5%입니다.")
-			elif len_input_money_data == 3:
-				tax = input_money_data[2]
-			else:
-				tax = 5
-
-			price_reg_tax = int(input_money_data[0] * ((100-tax)/100))
-			price_real_tax = int(input_money_data[1] * ((100-tax)/100))
-
-			reault_payback = price_reg_tax - price_real_tax
-			reault_payback1= price_reg_tax - input_money_data[1]
-
-			embed = discord.Embed(
-					title = f"🧮  페이백 계산결과1 (세율 {tax}% 기준) ",
-					description = f"**```fix\n{reault_payback}```**",
-					color=0x00ff00
-					)
-			embed.add_field(name = "⚖️ 거래소", value = f"```등록가 : {input_money_data[0]}\n정산가 : {price_reg_tax}\n세 금 : {input_money_data[0]-price_reg_tax}```")
-			embed.add_field(name = "🕵️ 실거래", value = f"```등록가 : {input_money_data[1]}\n정산가 : {price_real_tax}\n세 금 : {input_money_data[1]-price_real_tax}```")
-			await ctx.send(embed = embed)
-
-			embed2 = discord.Embed(
-					title = f"🧮  페이백 계산결과2 (세율 {tax}% 기준) ",
-					description = f"**```fix\n{reault_payback1}```**",
-					color=0x00ff00
-					)
-			embed2.add_field(name = "⚖️ 거래소", value = f"```등록가 : {input_money_data[0]}\n정산가 : {price_reg_tax}\n세 금 : {input_money_data[0]-price_reg_tax}```")
-			embed2.add_field(name = "🕵️ 실거래", value = f"```내판가 : {input_money_data[1]}```")
-			return await ctx.send(embed = embed2)
-		else:
-			return
-
-	@commands.command(name=command[37][0], aliases=command[37][1:])
-	async def command_rock_paper_scissors_game(self, ctx : commands.Context):
-		if basicSetting[19] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id != basicSetting[7] and ctx.message.channel.id != basicSetting[19]:
-			return
-
-		message_rock_paper_scissors : discord.message.Message = await ctx.send("안내면 진거 가위바위..")
-		reaction_emoji : list = ["✌️", "✊", "✋"]
-
-		for emoji in reaction_emoji:
-			await message_rock_paper_scissors.add_reaction(emoji)
-
-		def reaction_check(reaction, user):
-			return (reaction.message.id == message_rock_paper_scissors.id) and (user.id == ctx.author.id) and (str(reaction) in reaction_emoji)
-		try:
-			reaction_result, user = await self.bot.wait_for('reaction_add', check = reaction_check, timeout = int(basicSetting[5]))
-		except asyncio.TimeoutError:
-			return await ctx.send(f"시간이 초과됐습니다. ")
-		
-		bot_result : str = random.choice(reaction_emoji)
-		result_rock_paper_scissors : str = ""
-		
-		if reaction_result is None:
-			result_rock_paper_scissors = f"왜 안냄?"
-		elif str(reaction_result) == bot_result:
-			result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n🤔비겼다!"
-		elif str(reaction_result) == "✌️" and bot_result == "✋":
-			result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n👍짝짝짝"
-		elif str(reaction_result) == "✊" and bot_result == "✌️":
-			result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n👍짝짝짝"
-		elif str(reaction_result) == "✋" and bot_result == "✊":
-			result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n👍짝짝짝"
-		else:
-			result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n🤪저런.."
-
-		return await ctx.send(result_rock_paper_scissors)
+	#@commands.command(name=command[37][0], aliases=command[37][1:])
+	#async def command_rock_paper_scissors_game(self, ctx : commands.Context):
+	#	if basicSetting[19] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id != basicSetting[7] and ctx.message.channel.id != basicSetting[19]:
+	#		return
+    #
+	#	message_rock_paper_scissors : discord.message.Message = await ctx.send("안내면 진거 가위바위..")
+	#	reaction_emoji : list = ["✌️", "✊", "✋"]
+    #
+	#	for emoji in reaction_emoji:
+	#		await message_rock_paper_scissors.add_reaction(emoji)
+    #
+	#	def reaction_check(reaction, user):
+	#		return (reaction.message.id == message_rock_paper_scissors.id) and (user.id == ctx.author.id) and (str(reaction) in reaction_emoji)
+	#	try:
+	#		reaction_result, user = await self.bot.wait_for('reaction_add', check = reaction_check, timeout = int(basicSetting[5]))
+	#	except asyncio.TimeoutError:
+	#		return await ctx.send(f"시간이 초과됐습니다. ")
+	#	
+	#	bot_result : str = random.choice(reaction_emoji)
+	#	result_rock_paper_scissors : str = ""
+	#	
+	#	if reaction_result is None:
+	#		result_rock_paper_scissors = f"왜 안냄?"
+	#	elif str(reaction_result) == bot_result:
+	#		result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n🤔비겼다!"
+	#	elif str(reaction_result) == "✌️" and bot_result == "✋":
+	#		result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n👍짝짝짝"
+	#	elif str(reaction_result) == "✊" and bot_result == "✌️":
+	#		result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n👍짝짝짝"
+	#	elif str(reaction_result) == "✋" and bot_result == "✊":
+	#		result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n👍짝짝짝"
+	#	else:
+	#		result_rock_paper_scissors = f"봇 {bot_result} : {reaction_result} {ctx.author.mention}\n🤪저런.."
+    #
+	#	return await ctx.send(result_rock_paper_scissors)
 
 	################ 보이스사용 ################ 
-	@commands.command(name=command[38][0], aliases=command[38][1:])
-	async def command_voice_use(self, ctx : commands.Context):
-		if ctx.message.channel.id != basicSetting[7]:
-			return
-
-		inidata_voice_use = repo.get_contents("test_setting.ini")
-		file_data_voice_use = base64.b64decode(inidata_voice_use.content)
-		file_data_voice_use = file_data_voice_use.decode('utf-8')
-		inputData_voice_use = file_data_voice_use.split('\n')
-		
-		for i in range(len(inputData_voice_use)):
-			if inputData_voice_use[i].startswith("voice_use ="):
-				inputData_voice_use[i] = f"voice_use = 1\r"
-				basicSetting[21] = "1"
-		
-		result_voice_use = '\n'.join(inputData_voice_use)
-		
-		contents = repo.get_contents("test_setting.ini")
-		repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
-
-		if basicSetting[6] != "":
-			try:
-				await self.bot.get_channel(basicSetting[6]).connect(reconnect=True, timeout=5)
-			except:
-				await ctx.send( '< 음성채널 접속 에러! >', tts=False)
-				pass
-			if self.bot.voice_clients[0].is_connected() :
-				print("보이스 사용 설정 완료!")
-				return await ctx.send(f"```보이스를 사용하도록 설정하였습니다.!```")
-
-		return await ctx.send(f"```보이스 사용 설정이 완료 되었습니다!\n< 음성채널 접속 후 [{command[5][0]}] 명령을 사용 하세요 >```")
+	#@commands.command(name=command[38][0], aliases=command[38][1:])
+	#async def command_voice_use(self, ctx : commands.Context):
+	#	if ctx.message.channel.id != basicSetting[7]:
+	#		return
+    #
+	#	inidata_voice_use = repo.get_contents("test_setting.ini")
+	#	file_data_voice_use = base64.b64decode(inidata_voice_use.content)
+	#	file_data_voice_use = file_data_voice_use.decode('utf-8')
+	#	inputData_voice_use = file_data_voice_use.split('\n')
+	#	
+	#	for i in range(len(inputData_voice_use)):
+	#		if inputData_voice_use[i].startswith("voice_use ="):
+	#			inputData_voice_use[i] = f"voice_use = 1\r"
+	#			basicSetting[21] = "1"
+	#	
+	#	result_voice_use = '\n'.join(inputData_voice_use)
+	#	
+	#	contents = repo.get_contents("test_setting.ini")
+	#	repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
+    #
+	#	if basicSetting[6] != "":
+	#		try:
+	#			await self.bot.get_channel(basicSetting[6]).connect(reconnect=True, timeout=5)
+	#		except:
+	#			await ctx.send( '< 음성채널 접속 에러! >', tts=False)
+	#			pass
+	#		if self.bot.voice_clients[0].is_connected() :
+	#			print("보이스 사용 설정 완료!")
+	#			return await ctx.send(f"```보이스를 사용하도록 설정하였습니다.!```")
+    #
+	#	return await ctx.send(f"```보이스 사용 설정이 완료 되었습니다!\n< 음성채널 접속 후 [{command[5][0]}] 명령을 사용 하세요 >```")
 
 	################ 보이스미사용 ################ 
-	@commands.command(name=command[39][0], aliases=command[39][1:])
-	async def command_voice_not_use(self, ctx : commands.Context):
-		if ctx.message.channel.id != basicSetting[7]:
-			return
-
-		for vc in self.bot.voice_clients:
-			if vc.guild.id == int(ctx.guild.id):
-				if vc.is_playing():
-					vc.stop()
-			await vc.disconnect(force=True)
-
-		inidata_voice_use = repo.get_contents("test_setting.ini")
-		file_data_voice_use = base64.b64decode(inidata_voice_use.content)
-		file_data_voice_use = file_data_voice_use.decode('utf-8')
-		inputData_voice_use = file_data_voice_use.split('\n')
-		
-		for i in range(len(inputData_voice_use)):
-			if inputData_voice_use[i].startswith("voice_use ="):
-				inputData_voice_use[i] = f"voice_use = 0\r"
-				basicSetting[21] = "0"
-		
-		result_voice_use = '\n'.join(inputData_voice_use)
-		
-		contents = repo.get_contents("test_setting.ini")
-		repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
-		return await ctx.send(f"```보이스를 사용하지 않도록 설정하였습니다.!```")
+	#@commands.command(name=command[39][0], aliases=command[39][1:])
+	#async def command_voice_not_use(self, ctx : commands.Context):
+	#	if ctx.message.channel.id != basicSetting[7]:
+	#		return
+    #
+	#	for vc in self.bot.voice_clients:
+	#		if vc.guild.id == int(ctx.guild.id):
+	#			if vc.is_playing():
+	#				vc.stop()
+	#		await vc.disconnect(force=True)
+    #
+	#	inidata_voice_use = repo.get_contents("test_setting.ini")
+	#	file_data_voice_use = base64.b64decode(inidata_voice_use.content)
+	#	file_data_voice_use = file_data_voice_use.decode('utf-8')
+	#	inputData_voice_use = file_data_voice_use.split('\n')
+	#	
+	#	for i in range(len(inputData_voice_use)):
+	#		if inputData_voice_use[i].startswith("voice_use ="):
+	#			inputData_voice_use[i] = f"voice_use = 0\r"
+	#			basicSetting[21] = "0"
+	#	
+	#	result_voice_use = '\n'.join(inputData_voice_use)
+	#	
+	#	contents = repo.get_contents("test_setting.ini")
+	#	repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
+	#	return await ctx.send(f"```보이스를 사용하지 않도록 설정하였습니다.!```")
 
 	################ 럭키박스 ################ 
-	@commands.command(name=command[41][0], aliases=command[41][1:])
-	async def command_randombox_game(self, ctx : commands.Context, *, args : str = None):
-		if basicSetting[19] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id != basicSetting[7] and ctx.message.channel.id != basicSetting[19]:
-			return
-
-		if not args:
-			return await ctx.send(f'```명령어 [추첨인원] (대기시간/초) *(메모) 형태로 입력해주시기 바랍나다.```')
-
-		memo_data : str = ""
-		waiting_time : int = 30
-
-		if args.find("*") == -1:
-			input_game_data = args.split()
-		else:
-			input_game_data = args[:args.find("*")-1].split()
-			memo_data = args[args.find("*")+1:]
-
-		try:
-			num_cong = int(input_game_data[0])  # 뽑을 인원
-			if num_cong <= 0:
-				return await ctx.send(f'```추첨인원이 0보다 작거나 같습니다. 재입력 해주세요```')
-		except ValueError:
-			return await ctx.send('```추첨인원은 숫자로 입력 바랍니다\nex)!럭키박스 1```')
-
-		if len(input_game_data) >= 2:
-			waiting_time : int = 30
-			try:
-				waiting_time = int(input_game_data[1])  # 대기시간
-				if waiting_time <= 0 :
-					return await ctx.send(f'```대기시간이 0보다 작거나 같습니다. 재입력 해주세요```')
-			except ValueError:
-				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!럭키박스 1 60```')
-
-		reaction_emoji : list = ["✅", "❌"]
-
-		embed = discord.Embed(title  = f"📦 럭키박스! 묻고 더블로 가! (잔여시간 : {waiting_time}초)", description = f"참가를 원하시면 ✅를 클릭해주세요!", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
-			color=0x00ff00
-			)
-		if memo_data != "":
-			embed.add_field(name = "📜 메모", value =  f"```{memo_data}```", inline=False)
-
-		game_message : discord.message.Message = await ctx.send(embed = embed)
-
-		for emoji in reaction_emoji:
-			await game_message.add_reaction(emoji)
-		
-		cache_msg = await ctx.fetch_message(game_message.id)
-
-		for i in range(waiting_time):
-			embed.title = f"📦 럭키박스! 묻고 더블로 가! (잔여시간 : {waiting_time - i}초)"			
-			await game_message.edit(embed=embed)
-			cache_msg = await ctx.fetch_message(game_message.id)
-			if cache_msg.reactions[1].count >= 2:
-				tmp_users = await cache_msg.reactions[1].users().flatten()
-				for user in tmp_users:
-					if user.id == ctx.author.id:
-						embed.title = f"😫 럭키박스! 취소! 😱"
-						embed.description = ""
-						await game_message.edit(embed=embed)	
-						return await ctx.send(f"```게임이 취소되었습니다.!```")
-			await asyncio.sleep(1)
-
-		if cache_msg.reactions[0].count == 1:
-			embed.title = f"😫 럭키박스! 추첨 실패! 😱"
-			embed.description = ""
-			await game_message.edit(embed=embed)
-			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
-
-		if num_cong >= cache_msg.reactions[0].count-1:
-			embed.title = f"😫 럭키박스! 추첨 실패! 😱"
-			embed.description = ""
-			await game_message.edit(embed=embed)		
-			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
-
-		participant_users = await cache_msg.reactions[0].users().flatten()
-
-		del_index : int = 0
-		for i, user in enumerate(participant_users):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users[del_index]
-
-		user_name_list : list = []
-		for user in participant_users:
-			user_name_list.append(user.mention)
-
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list)
-
-		result_users = None
-		for _ in range(num_cong + 5):
-			result_users = random.sample(user_name_list, num_cong)
-
-		lose_user = list(set(user_name_list)-set(result_users))
-
-		embed.title = f"🎉 럭키박스! 결과발표! 🎉"
-		embed.description = ""
-		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
-		embed.add_field(name = f"😍 당첨 ({num_cong}명)", value =  f"{', '.join(result_users)}")
-		if len(lose_user) != 0:
-			embed.add_field(name = f"😭 낙첨 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
-		return await game_message.edit(embed=embed)
+	#@commands.command(name=command[41][0], aliases=command[41][1:])
+	#async def command_randombox_game(self, ctx : commands.Context, *, args : str = None):
+	#	if basicSetting[19] != "" and ctx.message.channel.id == basicSetting[7]:
+	#		return
+    #
+	#	if ctx.message.channel.id != basicSetting[7] and ctx.message.channel.id != basicSetting[19]:
+	#		return
+    #
+	#	if not args:
+	#		return await ctx.send(f'```명령어 [추첨인원] (대기시간/초) *(메모) 형태로 입력해주시기 바랍나다.```')
+    #
+	#	memo_data : str = ""
+	#	waiting_time : int = 30
+    #
+	#	if args.find("*") == -1:
+	#		input_game_data = args.split()
+	#	else:
+	#		input_game_data = args[:args.find("*")-1].split()
+	#		memo_data = args[args.find("*")+1:]
+    #
+	#	try:
+	#		num_cong = int(input_game_data[0])  # 뽑을 인원
+	#		if num_cong <= 0:
+	#			return await ctx.send(f'```추첨인원이 0보다 작거나 같습니다. 재입력 해주세요```')
+	#	except ValueError:
+	#		return await ctx.send('```추첨인원은 숫자로 입력 바랍니다\nex)!럭키박스 1```')
+    #
+	#	if len(input_game_data) >= 2:
+	#		waiting_time : int = 30
+	#		try:
+	#			waiting_time = int(input_game_data[1])  # 대기시간
+	#			if waiting_time <= 0 :
+	#				return await ctx.send(f'```대기시간이 0보다 작거나 같습니다. 재입력 해주세요```')
+	#		except ValueError:
+	#			return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!럭키박스 1 60```')
+    #
+	#	reaction_emoji : list = ["✅", "❌"]
+    #
+	#	embed = discord.Embed(title  = f"📦 럭키박스! 묻고 더블로 가! (잔여시간 : {waiting_time}초)", description = f"참가를 원하시면 ✅를 클릭해주세요!", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
+	#		color=0x00ff00
+	#		)
+	#	if memo_data != "":
+	#		embed.add_field(name = "📜 메모", value =  f"```{memo_data}```", inline=False)
+    #
+	#	game_message : discord.message.Message = await ctx.send(embed = embed)
+    #
+	#	for emoji in reaction_emoji:
+	#		await game_message.add_reaction(emoji)
+	#	
+	#	cache_msg = await ctx.fetch_message(game_message.id)
+    #
+	#	for i in range(waiting_time):
+	#		embed.title = f"📦 럭키박스! 묻고 더블로 가! (잔여시간 : {waiting_time - i}초)"			
+	#		await game_message.edit(embed=embed)
+	#		cache_msg = await ctx.fetch_message(game_message.id)
+	#		if cache_msg.reactions[1].count >= 2:
+	#			tmp_users = await cache_msg.reactions[1].users().flatten()
+	#			for user in tmp_users:
+	#				if user.id == ctx.author.id:
+	#					embed.title = f"😫 럭키박스! 취소! 😱"
+	#					embed.description = ""
+	#					await game_message.edit(embed=embed)	
+	#					return await ctx.send(f"```게임이 취소되었습니다.!```")
+	#		await asyncio.sleep(1)
+    #
+	#	if cache_msg.reactions[0].count == 1:
+	#		embed.title = f"😫 럭키박스! 추첨 실패! 😱"
+	#		embed.description = ""
+	#		await game_message.edit(embed=embed)
+	#		return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
+    #
+	#	if num_cong >= cache_msg.reactions[0].count-1:
+	#		embed.title = f"😫 럭키박스! 추첨 실패! 😱"
+	#		embed.description = ""
+	#		await game_message.edit(embed=embed)		
+	#		return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
+    #
+	#	participant_users = await cache_msg.reactions[0].users().flatten()
+    #
+	#	del_index : int = 0
+	#	for i, user in enumerate(participant_users):
+	#		if self.bot.user.id == user.id:
+	#			del_index = i
+	#	del participant_users[del_index]
+    #
+	#	user_name_list : list = []
+	#	for user in participant_users:
+	#		user_name_list.append(user.mention)
+    #
+	#	for _ in range(num_cong + 5):
+	#		random.shuffle(user_name_list)
+    #
+	#	result_users = None
+	#	for _ in range(num_cong + 5):
+	#		result_users = random.sample(user_name_list, num_cong)
+    #
+	#	lose_user = list(set(user_name_list)-set(result_users))
+    #
+	#	embed.title = f"🎉 럭키박스! 결과발표! 🎉"
+	#	embed.description = ""
+	#	embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
+	#	embed.add_field(name = f"😍 당첨 ({num_cong}명)", value =  f"{', '.join(result_users)}")
+	#	if len(lose_user) != 0:
+	#		embed.add_field(name = f"😭 낙첨 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
+	#	return await game_message.edit(embed=embed)
 
 	################ 컷등록 ################ 
 	@commands.command(name=command[43][0], aliases=command[43][1:])
