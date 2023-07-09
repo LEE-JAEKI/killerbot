@@ -2628,21 +2628,6 @@ class mainCog(commands.Cog):
 		else:
 			return
 
-	################ 킬초기화 ################ 
-	@commands.command(name=command[24][0], aliases=command[24][1:])
-	async def killInit_(self, ctx):
-		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id == basicSetting[7] or ctx.message.channel.id == basicSetting[18]:
-			global kill_Data
-
-			kill_Data = {}
-			
-			await init_data_list('kill_list.ini', '-----척살명단-----')
-			return await ctx.send( '< 킬 목록 초기화완료 >', tts=False)
-		else:
-			return
 
 	################ 킬명단 확인 및 추가################ 
 	@commands.command(name=command[25][0], aliases=command[25][1:]) 
