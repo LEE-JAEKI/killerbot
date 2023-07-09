@@ -163,7 +163,7 @@ def init():
 
 	global bossNum
 	global fixed_bossNum
-	#global chkvoicechannel
+	global chkvoicechannel
 	global chkrelogin
 
 	global bossTime
@@ -185,8 +185,8 @@ def init():
 	
 	global channel_info
 	global channel_name
-	#global channel_voice_name
-	#global channel_voice_id
+	global channel_voice_name
+	global channel_voice_id
 	global channel_id
 	global channel_type
 	global LoadChk
