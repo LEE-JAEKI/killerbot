@@ -306,7 +306,7 @@ def init():
 		basicSetting.append(inputData[9][16:])     #basicSetting[3] : before_alert1
 		basicSetting.append(inputData[14][14:16])  #basicSetting[4] : restarttime 시
 		basicSetting.append(inputData[14][17:])    #basicSetting[5] : restarttime 분
-		#basicSetting.append(inputData[1][15:])     #basicSetting[6] : voice채널 ID
+		basicSetting.append(inputData[1][15:])     #basicSetting[6] : voice채널 ID
 		basicSetting.append(inputData[2][14:])     #basicSetting[7] : text채널 ID
 		basicSetting.append(inputData[3][16:])     #basicSetting[8] : 사다리 채널 ID
 		basicSetting.append(inputData[13][14:])    #basicSetting[9] : !ㅂ 출력 수
@@ -321,7 +321,7 @@ def init():
 		basicSetting.append(inputData[5][14:])     #basicSetting[18] : kill채널 ID
 		basicSetting.append(inputData[6][16:])     #basicSetting[19] : racing 채널 ID
 		basicSetting.append(inputData[7][14:])     #basicSetting[20] : item 채널 ID
-		#basicSetting.append(inputData[21][12:])     #basicSetting[21] : voice_use
+		basicSetting.append(inputData[21][12:])     #basicSetting[21] : voice_use
 		basicSetting.append(inputData[11][11:])     #basicSetting[22] : mungChk2
 	except:
 		raise Exception("[test_setting.ini] 파일 양식을 확인하세요.")
@@ -332,7 +332,7 @@ def init():
 		fc = tmp_command.split(', ')
 		command.append(fc)
 		fc = []
-		#command.append(command_inputData[i][12:].rstrip('\r'))     #command[0] ~ [24] : 명령어
+		command.append(command_inputData[i][12:].rstrip('\r'))     #command[0] ~ [24] : 명령어
 
 	################## 척살 명단 ###########################
 	for i in range(len(kill_inputData)):
