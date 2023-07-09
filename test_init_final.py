@@ -1466,19 +1466,19 @@ class mainCog(commands.Cog):
 		print (ctx.message.channel.id)
 		if ctx.message.channel.id == basicSetting[7]:
 			setting_val = '보탐봇버전 : Server Ver. 28 (2021. 6. 23.)\n'
-			if basicSetting[6] != "" :
-				setting_val += '음성채널 : ' + self.bot.get_channel(basicSetting[6]).name + '\n'
-			setting_val += '텍스트채널 : ' + self.bot.get_channel(basicSetting[7]).name +'\n'
-			if basicSetting[8] != "" :
-				setting_val += '사다리채널 : ' + self.bot.get_channel(int(basicSetting[8])).name + '\n'
-			if basicSetting[11] != "" :
-				setting_val += '정산채널 : ' + self.bot.get_channel(int(basicSetting[11])).name + '\n'
-			if basicSetting[18] != "" :
-				setting_val += '척살채널 : ' + self.bot.get_channel(int(basicSetting[18])).name + '\n'
+			#if basicSetting[6] != "" :
+			#	setting_val += '음성채널 : ' + self.bot.get_channel(basicSetting[6]).name + '\n'
+			#setting_val += '텍스트채널 : ' + self.bot.get_channel(basicSetting[7]).name +'\n'
+			#if basicSetting[8] != "" :
+			#	setting_val += '사다리채널 : ' + self.bot.get_channel(int(basicSetting[8])).name + '\n'
+			#if basicSetting[11] != "" :
+			#	setting_val += '정산채널 : ' + self.bot.get_channel(int(basicSetting[11])).name + '\n'
+			#if basicSetting[18] != "" :
+			#	setting_val += '척살채널 : ' + self.bot.get_channel(int(basicSetting[18])).name + '\n'
 			if basicSetting[19] != "" :
 				setting_val += '경주채널 : ' + self.bot.get_channel(int(basicSetting[19])).name + '\n'
-			if basicSetting[20] != "" :
-				setting_val += '아이템채널 : ' + self.bot.get_channel(int(basicSetting[20])).name + '\n'
+			#if basicSetting[20] != "" :
+			#	setting_val += '아이템채널 : ' + self.bot.get_channel(int(basicSetting[20])).name + '\n'
 			setting_val += '보스젠알림시간1 : ' + basicSetting[1] + ' 분 전\n'
 			setting_val += '보스젠알림시간2 : ' + basicSetting[3] + ' 분 전\n'
 			setting_val += '보스멍확인시간1 : ' + basicSetting[2] + ' 분 후\n'
@@ -2865,8 +2865,8 @@ class mainCog(commands.Cog):
 			if len(racing_member) <= 1:
 				await ctx.send('레이스 인원이 2명보다 작습니다.')
 				return
-			elif len(racing_member) >= 13:
-				await ctx.send('레이스 인원이 12명 초과입니다.')
+			elif len(racing_member) >= 21:
+				await ctx.send('레이스 인원이 20명 초과입니다.')
 				return
 			else :
 				race_val = random.sample(range(tmp_race_tab, tmp_race_tab+len(racing_member)), len(racing_member))
